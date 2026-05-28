@@ -1,0 +1,83 @@
+{
+  "markers": {
+    "M002": {
+      "marker_id": "M002",
+      "name": "Dr. Jane Doe",
+      "email": "jane.doe@keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Lecturer",
+      "is_demo": true,
+      "created_date": "2025-09-01T05:00:30.402115"
+    },
+    "M003": {
+      "marker_id": "M003",
+      "name": "Prof. Robert Wilson",
+      "email": "robert.wilson@keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Professor",
+      "is_demo": true,
+      "created_date": "2025-09-01T05:00:30.402115"
+    },
+    "M005": {
+      "marker_id": "M005",
+      "name": "Dr. Michael Brown",
+      "email": "michael.brown@keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Lecturer",
+      "is_demo": true,
+      "created_date": "2025-09-01T05:00:30.402115"
+    },
+    "M007": {
+      "marker_id": "M007",
+      "name": "Prajwal Gyanashekar",
+      "email": "y3p54@students.keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Lecturer",
+      "is_demo": false,
+      "created_date": "2025-09-12T03:34:27.627240",
+      "last_updated": "2025-09-12T03:34:27.627240"
+    },
+    "M008": {
+      "marker_id": "M008",
+      "name": "omkar vaibhav",
+      "email": "y3t54@students.keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Lecturer",
+      "is_demo": false,
+      "created_date": "2025-09-12T03:35:04.033585",
+      "last_updated": "2025-09-12T03:35:04.033585"
+    },
+    "M009": {
+      "marker_id": "M009",
+      "name": "Dr. Baidaa Al-Bander",
+      "email": "b.al-bander@keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Professor",
+      "is_demo": true,
+      "created_date": "2025-09-17T19:02:50.141249",
+      "last_updated": "2025-09-17T19:02:50.141249"
+    },
+    "M010": {
+      "marker_id": "M010",
+      "name": "Farhan Hashmi",
+      "email": "shaunfarhan16@gmail.com",
+      "department": "Computer Science",
+      "role": "Lecturer",
+      "is_demo": false,
+      "created_date": "2025-09-18T11:55:41.411795",
+      "last_updated": "2025-09-18T11:55:41.411795"
+    },
+    "M011": {
+      "marker_id": "M011",
+      "name": "Farhan Hashmi",
+      "email": "y3p53@students.keele.ac.uk",
+      "department": "Computer Science",
+      "role": "Lecturer",
+      "is_demo": false,
+      "created_date": "2025-09-18T12:25:44.249485",
+      "last_updated": "2025-09-18T12:25:44.249485"
+    }
+  },
+  "last_updated": "2025-10-01T09:34:28.618142",
+  "version": "2.0"
+}

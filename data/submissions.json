@@ -1,0 +1,47 @@
+{
+  "submissions": {
+    "TEST001": {
+      "assessment_data": {
+        "StudentID": "TEST001",
+        "StudentName": "Test Student",
+        "Score": 75,
+        "PassFail": "Pass",
+        "Feedback": "Good work on the assignment",
+        "AI_Feedback_Optional": "AI suggests improvement in code structure",
+        "M1_Name": "Dr. John Smith",
+        "M1_Email": "john.smith@keele.ac.uk",
+        "M2_Name": "Dr. Jane Doe",
+        "M2_Email": "jane.doe@keele.ac.uk",
+        "M3_Name": "Prof. Robert Wilson",
+        "M3_Email": "robert.wilson@keele.ac.uk",
+        "Submission_Date": "2025-09-08T14:30:00",
+        "Status": "Awaiting M2"
+      },
+      "forms_export_path": "data/forms_exports\\Forms_Export_TEST001_20250908_022932.xlsx",
+      "export_date": "2025-09-08T02:29:33.113211",
+      "status": "Exported - Awaiting M2"
+    },
+    "24020998": {
+      "assessment_data": {
+        "StudentID": "24020998",
+        "StudentName": "hilly billy",
+        "Score": 75,
+        "PassFail": "Pass",
+        "Feedback": "The report was good",
+        "AI_Feedback_Optional": "",
+        "M1_Name": "omkar vaibhav",
+        "M1_Email": "y3t54@students.keele.ac.uk",
+        "M2_Name": "Farhan hashmi",
+        "M2_Email": "y3p53@students.keele.ac.uk",
+        "M3_Name": "Prajwal Gyanashekar",
+        "M3_Email": "y3p54@students.keele.ac.uk",
+        "Submission_Date": "2025-09-12T04:40:16.922175",
+        "Status": "Awaiting M2"
+      },
+      "forms_export_path": "data/forms_exports\\Forms_Export_24020998_20250912_044133.xlsx",
+      "export_date": "2025-09-12T04:41:33.025261",
+      "status": "Exported - Awaiting M2"
+    }
+  },
+  "last_updated": "2025-09-12T04:41:33.025261"
+}
