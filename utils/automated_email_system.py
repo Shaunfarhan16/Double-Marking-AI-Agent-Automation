@@ -74,10 +74,14 @@ Best regards,
 ⚡ Real-time automated delivery - no manual intervention required
 """
         
-        # Validate configuration
+        # Validate configuration (sets self.configured flag, does not raise)
+        self.configured = False
         self._validate_configuration()
-        
-        logger.info("Automated Email System initialized successfully")
+
+        if self.configured:
+            logger.info("Automated Email System initialized successfully")
+        else:
+            logger.warning("Automated Email System started in degraded mode — email sending disabled")
     
     def _detect_email_provider(self, email: str) -> str:
         """Detect email provider from email address for compatibility tracking."""
@@ -180,17 +184,18 @@ Best regards,
         return html_body
     
     def _validate_configuration(self):
-        """Validate email configuration and credentials."""
+        """Validate email configuration and set self.configured flag."""
         if not self.agent_email or not self.agent_password:
-            raise ValueError(
-                "Email credentials not configured. Please set AGENT_EMAIL and AGENT_APP_PASSWORD in .env file"
-            )
-        
+            logger.warning("Email credentials not configured. Set AGENT_EMAIL and AGENT_APP_PASSWORD.")
+            self.configured = False
+            return
+
         if "your_16_char_app_password_here" in str(self.agent_password):
-            raise ValueError(
-                "Please replace placeholder app password with actual Gmail App Password in .env file"
-            )
-        
+            logger.warning("Placeholder app password detected. Replace with a real Gmail App Password.")
+            self.configured = False
+            return
+
+        self.configured = True
         logger.info(f"Email configuration validated for agent: {self.agent_email}")
     
     def _create_smtp_connection(self) -> smtplib.SMTP:
@@ -239,6 +244,12 @@ Best regards,
         Returns:
             Dict containing delivery status and details
         """
+        if not self.configured:
+            return {
+                'status': 'failed',
+                'message': 'Email system not configured. Set AGENT_EMAIL and AGENT_APP_PASSWORD in Streamlit secrets.'
+            }
+
         try:
             # Create email message with full RFC-compliant headers
             msg = MIMEMultipart('alternative')  # Support both plain text and HTML

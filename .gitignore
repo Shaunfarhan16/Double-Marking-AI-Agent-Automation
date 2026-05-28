@@ -78,8 +78,8 @@ models/*.bin
 temp/
 *.tmp
 
-# Streamlit
-.streamlit/
+# Streamlit — allow config.toml but never commit secrets
+.streamlit/secrets.toml
 
 # Environment variables
 .env

@@ -22,7 +22,13 @@ class EnhancedEmailSystem:
     """Enhanced email system with Forms integration."""
 
     def __init__(self):
-        self.base_email_system = AutomatedEmailSystem()
+        try:
+            self.base_email_system = AutomatedEmailSystem()
+            self.email_available = getattr(self.base_email_system, 'configured', False)
+        except Exception as e:
+            logger.warning(f"Email system could not be initialized: {e}")
+            self.base_email_system = None
+            self.email_available = False
         self.forms_url = forms_generator.get_forms_url()
 
     def build_prefilled_forms_url(self, student_data: Dict) -> str:
@@ -54,6 +60,14 @@ class EnhancedEmailSystem:
 
     def send_m2_notification_with_forms(self, student_data: Dict) -> Dict:
         """Send M2 notification email with Forms link."""
+
+        if not self.email_available or not self.base_email_system:
+            forms_link = self.build_prefilled_forms_url(student_data)
+            return {
+                'status': 'failed',
+                'message': 'Email system not configured. Set AGENT_EMAIL and AGENT_APP_PASSWORD in Streamlit secrets.',
+                'forms_link': forms_link
+            }
 
         try:
             # Build pre-filled Forms URL
@@ -122,6 +136,14 @@ If you have any questions, please contact the system administrator.
 
     def send_m3_escalation_with_forms(self, student_data: Dict, m2_data: Dict) -> Dict:
         """Send M3 escalation email with Forms link."""
+
+        if not self.email_available or not self.base_email_system:
+            forms_link = self.build_prefilled_forms_url(student_data)
+            return {
+                'status': 'failed',
+                'message': 'Email system not configured. Set AGENT_EMAIL and AGENT_APP_PASSWORD in Streamlit secrets.',
+                'forms_link': forms_link
+            }
 
         try:
             # Build pre-filled Forms URL (with M1 and M2 data)
@@ -620,6 +642,16 @@ This is an automated completion notification from the Double-Marking AI Agent Sy
                 'message': f'Failed to send finalization notifications: {str(e)}',
                 'notifications_sent': notifications_sent
             }
+
+    def send_test_email(self, test_recipient: str) -> Dict:
+        """Send a test email to verify the system is working."""
+        if not self.email_available or not self.base_email_system:
+            return {
+                'status': 'failed',
+                'message': 'Email system not configured. Set AGENT_EMAIL and AGENT_APP_PASSWORD in Streamlit secrets.'
+            }
+        return self.base_email_system.send_test_email(test_recipient)
+
 
 # Global instance
 enhanced_email_system = EnhancedEmailSystem()

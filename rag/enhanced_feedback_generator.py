@@ -52,9 +52,15 @@ try:
 except ImportError:
     OCR_AVAILABLE = False
 
-# RAG system imports
+# Claude API (always available if anthropic package is installed)
 try:
     import anthropic
+    ANTHROPIC_AVAILABLE = True
+except ImportError:
+    ANTHROPIC_AVAILABLE = False
+
+# RAG system imports (optional — requires sentence-transformers + faiss which pull torch)
+try:
     from sentence_transformers import SentenceTransformer
     import faiss
     import numpy as np
@@ -396,26 +402,30 @@ class EnhancedFeedbackGenerator:
         self.doc_processor = EnhancedDocumentProcessor()
         self.rag_system = None
         self.claude_client = None
+        self.embedding_model = None
+        self.index = None
+        self.chunks = []
 
+        # Initialize Claude client independently of RAG dependencies
+        if ANTHROPIC_AVAILABLE:
+            api_key = os.getenv('ANTHROPIC_API_KEY')
+            if api_key:
+                try:
+                    self.claude_client = anthropic.Anthropic(api_key=api_key)
+                    logger.info("Claude client initialized successfully")
+                except Exception as e:
+                    logger.error(f"Failed to initialize Claude client: {e}")
+            else:
+                logger.warning("No ANTHROPIC_API_KEY found — AI feedback will be unavailable")
+
+        # Optional: RAG with embeddings (requires sentence-transformers + faiss)
         if RAG_AVAILABLE:
             try:
-                # Initialize embedding model
                 self.embedding_model = SentenceTransformer('BAAI/bge-small-en-v1.5')
-
-                # Initialize FAISS index
-                self.index = faiss.IndexFlatIP(384)  # BGE model dimension
-                self.chunks = []
-
-                # Initialize Claude client
-                api_key = os.getenv('ANTHROPIC_API_KEY')
-                if api_key:
-                    self.claude_client = anthropic.Anthropic(api_key=api_key)
-                    logger.info("Enhanced feedback generator initialized successfully")
-                else:
-                    logger.warning("No Anthropic API key found")
-
+                self.index = faiss.IndexFlatIP(384)
+                logger.info("RAG embedding model loaded")
             except Exception as e:
-                logger.error(f"Failed to initialize enhanced feedback generator: {e}")
+                logger.warning(f"RAG model load failed (non-fatal): {e}")
 
     def generate_enhanced_feedback(self, submission_file, rubric_file=None) -> str:
         """Generate enhanced feedback with robust document processing."""
